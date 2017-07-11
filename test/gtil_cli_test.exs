@@ -10,9 +10,18 @@ defmodule GtilCliTest do
     assert run(["blabla"]) == help_info()
   end
 
+  test "fetch the issues with options name, repo, count and label" do
+    assert run(["--fetch", "--name", "vincent", "--repo", "test", "--count", "4", "--label", "elixir"]) == {"vincent", "test", 4, "elixir"}
+  end
+
   def help_info do
     "
-      fetch <name> <repo> <count>       Display table of last _count_ issues from <repo>
+      --help, -h        List of available commands
+      --fetch, -f       Fetch the issues
+      --name, -n        GitHub username
+      --repo, -r        Repository name
+      --label, -l       Issue's label
+      --count, -c       The number of issues want to be display. Default is 5
     "
   end
 end

@@ -5,30 +5,51 @@ defmodule Gtil.Cli do
   """
 
   def run(args) do
-    parse_args(args)
+    args
+      |> parse_args
+      |> process
   end
 
   @doc """
     `args` can be:
 
     -h, --help returns :help
-    user, til_repo, count returns {user, til_repo, count}
+    -
   """
   def parse_args(args) do
-    parse = OptionParser.parse(args, switches: [help: :boolean], aliases: [h: :help])
+    parse = OptionParser.parse(args,
+              switches: [
+                help: :boolean,
+                fetch: :boolean, name: :string, repo: :string, count: :integer, label: :string,
+                push: :boolean, title: :string, body: :string, labels: :string
+              ],
+              aliases: [h: :help, f: :fetch, n: :name, r: :repo, c: :count, l: :label])
 
     case parse do
-      {[help: true], _, _} -> help_info()
-      _ -> help_info()
+      {[help: true], _, _} -> :help
+      {[fetch: true, name: name, repo: repo, count: count, label: label], _, _} -> {name, repo, count, label}
+      _ -> :help
     end
   end
 
   @doc """
     Display helper information
   """
-  defp help_info do
+  def process(:help) do
     "
-      fetch <name> <repo> <count>       Display table of last _count_ issues from <repo>
+      --help, -h        List of available commands
+      --fetch, -f       Fetch the issues
+      --name, -n        GitHub username
+      --repo, -r        Repository name
+      --label, -l       Issue's label
+      --count, -c       The number of issues want to be display. Default is 5
     "
+  end
+
+  @doc """
+    Dispatch to Fetch function
+  """
+  def process({user, til_repo, count, label}) do
+    {user, til_repo, count, label}
   end
 end
