@@ -8,7 +8,6 @@ defmodule Gtil.Cli do
     parse_args(args)
   end
 
-
   @doc """
     `args` can be:
 
@@ -19,8 +18,17 @@ defmodule Gtil.Cli do
     parse = OptionParser.parse(args, switches: [help: :boolean], aliases: [h: :help])
 
     case parse do
-      {[help: true], _, _} -> :help
-      _ -> :help
+      {[help: true], _, _} -> help_info()
+      _ -> help_info()
     end
+  end
+
+  @doc """
+    Display helper information
+  """
+  defp help_info do
+    "
+      fetch <name> <repo> <count>       Display table of last _count_ issues from <repo>
+    "
   end
 end
