@@ -1,0 +1,14 @@
+[
+  {
+    "request": {
+      "url": "https://api.github.com/repos/johndoe/til/issues"
+    },
+    "response": {
+      "status_code": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "body": '[{"id": 1, "url": "https://api.github.com/repos/octocat/Hello-World/issues/1347"}]'
+    }
+  }
+]
