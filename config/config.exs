@@ -28,3 +28,6 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+
+# GitHub Issue configuration
+config :gtil, github_url: "https://api.github.com"
