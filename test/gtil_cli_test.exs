@@ -12,6 +12,7 @@ defmodule GtilCliTest do
 
   test "fetch the issues with options name, repo, count and label" do
     assert parse_args(["--fetch", "--name", "vincent", "--repo", "test", "--count", "4", "--label", "elixir"]) == {"vincent", "test", 4, "elixir"}
+    assert parse_args(["--fetch", "--name", "vincent", "--repo", "test", "--label", "elixir"]) == {"vincent", "test", 5, "elixir"}
   end
 
   def help_info do
