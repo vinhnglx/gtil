@@ -30,7 +30,8 @@ defmodule Gtil.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.12"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:exvcr, "~> 0.8", only: :test, git: "https://github.com/vinhnglx/exvcr.git"}
     ]
   end
 end
