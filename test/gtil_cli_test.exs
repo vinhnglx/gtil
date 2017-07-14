@@ -32,6 +32,10 @@ defmodule GtilCliTest do
     assert filter(fake_response(), "NodeJS") |> length == 0
   end
 
+  test "take the number of item from the response" do
+    assert take(fake_response(), 1) |> length == 1
+  end
+
   def help_info do
     "
       --help, -h        List of available commands

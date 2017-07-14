@@ -55,11 +55,12 @@ defmodule Gtil.Cli do
   @doc """
     Dispatch to Fetch function
   """
-  def process({user, repo, _count, label}) do
+  def process({user, repo, count, label}) do
     Gtil.Fetches.fetch(user, repo)
       |> transform_response
       |> sort
       |> filter(label)
+      |> take(count)
   end
 
   @doc """
@@ -94,5 +95,12 @@ defmodule Gtil.Cli do
       item["labels"]
         |> Enum.any?(fn(x)-> x["name"] == label end)
     end)
+  end
+
+  @doc """
+    Take number of items from the response
+  """
+  def take(response, number) do
+    Enum.take(response, number)
   end
 end
