@@ -1,6 +1,9 @@
 defmodule GtilFetchTest do
   use ExUnit.Case
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+
+  doctest Gtil
+
   @github_url Application.get_env(:gtil, :github_url)
 
   setup_all do
@@ -11,15 +14,14 @@ defmodule GtilFetchTest do
   test "returns the response" do
     use_cassette "issue_response", custom: true do
       {:ok, response} = Gtil.Fetches.fetch("johndoe", "til")
-      assert List.first(response)["id"] == 1
-      assert List.first(response)["url"] == "#{@github_url}/repos/octocat/Hello-World/issues/1347"
+      assert response =~ "#{@github_url}/repos/johndoe/til/issues/1"
     end
   end
 
   test "returns the error" do
     use_cassette "error_response", custom: true do
       {:error, error_response} = Gtil.Fetches.fetch("johndoe", "error")
-      assert error_response["message"] == "Not Found"
+      assert error_response =~ "Not Found"
     end
   end
 end

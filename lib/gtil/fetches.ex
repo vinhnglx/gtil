@@ -9,10 +9,10 @@ defmodule Gtil.Fetches do
   end
 
   def handle_response(%{body: body, status_code: 200}) do
-    {:ok, Poison.Parser.parse!(body) }
+    {:ok, body}
   end
 
   def handle_response(%{body: body, status_code: _}) do
-    {:error, Poison.Parser.parse!(body)}
+    {:error, body}
   end
 end
