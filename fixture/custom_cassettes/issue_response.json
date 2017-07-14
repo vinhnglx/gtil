@@ -8,7 +8,7 @@
       "headers": {
         "Content-Type": "application/json"
       },
-      "body": '[{"id": 1, "url": "https://api.github.com/repos/octocat/Hello-World/issues/1347"}]'
+      "body": '[{"id": 1, "url": "https://api.github.com/repos/johndoe/til/issues/1"}]'
     }
   }
 ]
