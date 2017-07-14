@@ -15,6 +15,12 @@ defmodule GtilCliTest do
     assert parse_args(["--fetch", "--name", "vincent", "--repo", "test", "--label", "elixir"]) == {"vincent", "test", 5, "elixir"}
   end
 
+  test "transform the response" do
+    response = transform_response({:ok, '[{"id": 1, "url": "https://api.github.com/repos/johndoe/til/issues/1"}]'})
+    assert List.first(response)["id"] == 1
+    assert List.first(response)["url"] == "https://api.github.com/repos/johndoe/til/issues/1"
+  end
+
   def help_info do
     "
       --help, -h        List of available commands

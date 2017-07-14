@@ -57,5 +57,23 @@ defmodule Gtil.Cli do
   """
   def process({user, repo, _count, _label}) do
     Gtil.Fetches.fetch(user, repo)
+      |> transform_response
+  end
+
+  @doc """
+    Parse the JSON response from GitHub
+  """
+  def transform_response({:ok, body}) do
+    Poison.Parser.parse!(body)
+  end
+
+  @doc """
+    System halt when got the error from GitHub
+  """
+  def transform_response({:error, body}) do
+    message = Poison.Parser.parse!(body)["message"]
+
+    IO.puts "Error fetching from GitHub: #{message}"
+    System.halt(1)
   end
 end
