@@ -15,7 +15,7 @@ defmodule Gtil.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger, :httpoison]]
+    [extra_applications: [:logger, :httpoison, :poison, :table_rex]]
   end
 
   # Dependencies can be Hex packages:
@@ -31,7 +31,8 @@ defmodule Gtil.Mixfile do
     [
       {:httpoison, "~> 0.12"},
       {:poison, "~> 3.1"},
-      {:exvcr, "~> 0.8", only: :test, git: "https://github.com/vinhnglx/exvcr.git"}
+      {:exvcr, "~> 0.8", only: :test, git: "https://github.com/vinhnglx/exvcr.git"},
+      {:table_rex, "~> 0.10"}
     ]
   end
 end
