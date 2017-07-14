@@ -58,6 +58,7 @@ defmodule Gtil.Cli do
   def process({user, repo, _count, _label}) do
     Gtil.Fetches.fetch(user, repo)
       |> transform_response
+      |> sort
   end
 
   @doc """
@@ -75,5 +76,12 @@ defmodule Gtil.Cli do
 
     IO.puts "Error fetching from GitHub: #{message}"
     System.halt(1)
+  end
+
+  @doc """
+    Sort the response
+  """
+  def sort(response) do
+    Enum.sort(response, fn(item_1,item_2)-> Map.get(item_1, "created_at") <= Map.get(item_2, "created_at") end)
   end
 end
