@@ -26,6 +26,12 @@ defmodule GtilCliTest do
     assert result |> Enum.map(fn(x)-> x["created_at"] end) == [10, 403, 1010]
   end
 
+  test "filter the response by label" do
+    assert filter(fake_response(), "TIL") |> length == 1
+    assert filter(fake_response(), "Elixir") |> length == 1
+    assert filter(fake_response(), "NodeJS") |> length == 0
+  end
+
   def help_info do
     "
       --help, -h        List of available commands
@@ -41,5 +47,18 @@ defmodule GtilCliTest do
     for value <- values do
       %{"created_at" => value, "other_date" => "xxx"}
     end
+  end
+
+  def fake_response do
+    [
+      %{
+        "labels" =>  [%{"color" => "5319e7", "default" => false, "id" => 621683678, "name" => "TIL",
+                        "url" => "https://api.github.com/repos/vinhnglx/vinhnglx.github.io/labels/TIL"}]
+      },
+      %{
+        "labels" =>  [%{"color" => "5319e7", "default" => false, "id" => 621683680, "name" => "Elixir",
+                        "url" => "https://api.github.com/repos/vinhnglx/vinhnglx.github.io/labels/Elixir"}]
+      }
+    ]
   end
 end

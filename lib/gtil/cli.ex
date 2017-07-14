@@ -55,10 +55,11 @@ defmodule Gtil.Cli do
   @doc """
     Dispatch to Fetch function
   """
-  def process({user, repo, _count, _label}) do
+  def process({user, repo, _count, label}) do
     Gtil.Fetches.fetch(user, repo)
       |> transform_response
       |> sort
+      |> filter(label)
   end
 
   @doc """
@@ -83,5 +84,15 @@ defmodule Gtil.Cli do
   """
   def sort(response) do
     Enum.sort(response, fn(item_1,item_2)-> Map.get(item_1, "created_at") <= Map.get(item_2, "created_at") end)
+  end
+
+  @doc """
+    Filter the response by label
+  """
+  def filter(response, label) do
+    Enum.filter(response, fn(item) ->
+      item["labels"]
+        |> Enum.any?(fn(x)-> x["name"] == label end)
+    end)
   end
 end
