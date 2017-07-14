@@ -61,6 +61,7 @@ defmodule Gtil.Cli do
       |> sort
       |> filter(label)
       |> take(count)
+      |> output
   end
 
   @doc """
@@ -102,5 +103,22 @@ defmodule Gtil.Cli do
   """
   def take(response, number) do
     Enum.take(response, number)
+  end
+
+  @doc """
+    Output the response to table
+  """
+  def output(response) do
+    header = ["title", "url"]
+    TableRex.quick_render!(rows(response), header)
+  end
+
+  defp rows(data) do
+    data |> Enum.map(fn(item)->
+      item |> Enum.map(fn({k, v})->
+        if (k == "title" || k == "url"), do: v
+      end)
+    |> Enum.filter(fn(x)-> x !== nil end)
+    end)
   end
 end
